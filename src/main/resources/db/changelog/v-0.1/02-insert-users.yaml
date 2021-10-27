@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 02-insert
+      author: fuzuli.gulmammadli
+      changes:
+        - sql:
+            sql :  insert into micro_service_user(email, password) values ('fuzuligulmammadli@gmail.com', '12345678');

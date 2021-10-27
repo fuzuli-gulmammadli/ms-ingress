@@ -1,0 +1,16 @@
+version: '3.2'
+services:
+  db:
+    image: postgres:11.3
+    volumes:
+      - db_data:/var/lib/postgres
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: micro-service
+    ports:
+      - "5432:5432/tcp"
+
+volumes:
+  db_data:

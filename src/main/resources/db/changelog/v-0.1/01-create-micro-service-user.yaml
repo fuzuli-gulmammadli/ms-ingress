@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 000001-1
+      author: fuzuli.gulmammadli
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: micro_service_user_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+            tableName: micro_service_user
