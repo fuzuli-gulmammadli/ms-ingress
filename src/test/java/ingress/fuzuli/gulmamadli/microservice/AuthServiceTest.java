@@ -38,12 +38,43 @@ public class AuthServiceTest {
     }
 
     @Test
-    public void whenEmptyEmailThenException(){
+    public void whenEmptyInputThenException(){
         //Arrange
+        //no email
         SignUpDto signUpDto = new SignUpDto();
         signUpDto.setPassword("12345678");
         signUpDto.setPasswordConf("12345678");
         signUpDto.setPrivacyPolicy(true);
+
+        //Act and Assert
+        assertThatThrownBy(() -> authService.signUpUser(signUpDto))
+                .isInstanceOf(EmptyInputException.class);
+
+        //no password
+        signUpDto.setEmail("fuzuli@mail.com");
+        signUpDto.setPassword(null);
+        signUpDto.setPasswordConf("12345678");
+        signUpDto.setPrivacyPolicy(true);
+
+        //Act and Assert
+        assertThatThrownBy(() -> authService.signUpUser(signUpDto))
+                .isInstanceOf(EmptyInputException.class);
+
+        //no password confirmation
+        signUpDto.setEmail("fuzuli@mail.com");
+        signUpDto.setPassword("12345678");
+        signUpDto.setPasswordConf(null);
+        signUpDto.setPrivacyPolicy(true);
+
+        //Act and Assert
+        assertThatThrownBy(() -> authService.signUpUser(signUpDto))
+                .isInstanceOf(EmptyInputException.class);
+
+        //no privacy
+        signUpDto.setEmail("fuzuli@mail.com");
+        signUpDto.setPassword("12345678");
+        signUpDto.setPasswordConf("12345678");
+        signUpDto.setPrivacyPolicy(null);
 
         //Act and Assert
         assertThatThrownBy(() -> authService.signUpUser(signUpDto))
