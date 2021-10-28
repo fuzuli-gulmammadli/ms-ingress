@@ -15,9 +15,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
@@ -38,6 +40,10 @@ public class AuthControllerTest {
 
         //Arrange
         SignUpDto signUpDto = new SignUpDto();
+        signUpDto.setPassword("12345678");
+        signUpDto.setPasswordConf("12345678");
+        signUpDto.setPrivacyPolicy(true);
+
         EmptyInputException emptyInputException = new EmptyInputException("/v1/auth/sign-up", "email");
         when(authService.signUpUser(signUpDto)).thenThrow(emptyInputException);
 
@@ -46,7 +52,9 @@ public class AuthControllerTest {
                 post("/v1/auth/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(signUpDto))
-        ).andExpect(status().isBadRequest());
+        ).andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("email")))
+                .andExpect(content().string(containsString("must not be null")));
     }
 
 }
