@@ -10,15 +10,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignUpDto {
-    @NotNull
     private String email;
-
-    @NotNull
     private String password;
-
-    @NotNull
-    private String passwordConfirmation;
-
-    @NotNull
-    private Boolean acceptsPrivacyPolicy;
+    private String passwordConf;
+    private Boolean privacyPolicy;
 }
