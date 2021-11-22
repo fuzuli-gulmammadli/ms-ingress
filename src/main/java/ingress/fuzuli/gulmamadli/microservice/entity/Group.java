@@ -23,6 +23,23 @@ import java.util.Set;
 @Entity
 @Table(name="student_group")
 public class Group {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String groupName;
+
+    @ManyToMany(mappedBy = "groups", cascade = CascadeType.ALL)
+    Set<Student> students;
+
+    public Group(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public Group(Long id, String groupName) {
+        this.id = id;
+        this.groupName = groupName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,16 +53,5 @@ public class Group {
         return Objects.hash(groupName);
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    public Group(String groupName) {
-        this.groupName = groupName;
-    }
-
-    private String groupName;
-
-    @ManyToMany(mappedBy = "groups", cascade = CascadeType.ALL)
-    Set<Student> students;
 }

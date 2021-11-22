@@ -31,6 +31,11 @@ public class Course {
     @JoinColumn(name="student_id")
     private Student student;
 
+    public Course(Long id, String courseName) {
+        this.id = id;
+        this.courseName = courseName;
+    }
+
     public Course(String courseName) {
         this.courseName = courseName;
     }

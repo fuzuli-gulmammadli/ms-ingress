@@ -76,7 +76,11 @@ public class MicroServiceApplication implements CommandLineRunner {
 
 		studentRepository.saveAll(students);
 
-		var s = studentRepository.getAllStudents();
+		//join fetch
+//		var s1 = studentRepository.getAllStudentsWithJoinFetch();
+
+		//native with custom repository
+		var s2 = studentRepository.getAllStudentsNative();
 		System.out.println("a");
 	}
 }

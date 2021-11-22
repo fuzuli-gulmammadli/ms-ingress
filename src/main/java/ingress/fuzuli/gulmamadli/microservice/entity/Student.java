@@ -32,6 +32,12 @@ public class Student {
     private String firstName;
     private String lastName;
 
+    public Student(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Student(String firstName, String lastName, Set<Course> courses, Set<Group> groups) {
         this.firstName = firstName;
         this.lastName = lastName;
