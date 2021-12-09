@@ -2,6 +2,7 @@ package ingress.fuzuli.gulmamadli.microservice;
 
 import ingress.fuzuli.gulmamadli.microservice.entity.BankAccount;
 import ingress.fuzuli.gulmamadli.microservice.repository.BankAccountRepository;
+import org.hibernate.jpa.QueryHints;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.QueryHint;
+import java.util.List;
 
 @SpringBootApplication
 public class MicroServiceApplication implements CommandLineRunner {
@@ -74,7 +78,18 @@ public class MicroServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		customTransactionHandler();
+		bankAccountRepository.getAllBa();
+		bankAccountRepository.getAllBa();
+
+		l2CacheCheck();
+		l2CacheCheck();
+	}
+
+	public void l2CacheCheck() {
+		EntityManager em = entityManagerFactory.createEntityManager();
+		Query query = em.createQuery("select ba from BankAccount ba", BankAccount.class);
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
+		List<BankAccount> l = query.getResultList();
 	}
 
 //
